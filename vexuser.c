@@ -183,13 +183,14 @@ vexOperator( void *arg )
         // left drive
         vexMotorSet(MotorBack, vexControllerGet( Ch4 ));
         if(vexControllerGet(Btn5U))
+        if(vexControllerGet(Btn6U))
         {
             vexMotorSet(MotorBack, 127);
         }
 
-    
-
-
+    // Arm button
+     vexMotorSet(MotorArm, vexcontrollerGet (ch5))
+     if( vexController
 		// Don't hog cpu
 		vexSleep( 25 );
 		}
