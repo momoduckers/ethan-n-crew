@@ -68,7 +68,7 @@ static  vexMotorCfg mConfig[kVexMotorNum] = {
         { kVexMotor_3,      kVexMotor393T,           kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_4,      kVexMotor393T,           kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_5,      kVexMotor393T,           kVexMotorNormal,       kVexSensorNone,        0 },
-        { kVexMotor_6,      kVexMotorUndefined,      kVexMotorNormal,       kVexSensorNone,        0 },
+        { kVexMotor_6,      kVexMotor393T,           kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_7,      kVexMotorUndefined,      kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_8,      kVexMotorUndefined,      kVexMotorNormal,       kVexSensorNone,        0 },
         { kVexMotor_9,      kVexMotorUndefined,      kVexMotorNormal,       kVexSensorNone,        0 },
@@ -130,6 +130,7 @@ vexAutonomous( void *arg )
 #define MotorDriveR     kVexMotor_3
 #define MotorBack       kVexMotor_4
 #define MotorArm        kVexMotor_5
+#define MotorArm2       kVexMotor_6
 
 #define HYSTERESIS      25
 /*-----------------------------------------------------------------------------*/
@@ -189,13 +190,16 @@ vexOperator( void *arg )
 
     // Arm button
     if(vexControllerGet(Btn7U))
-    {
-      vexMotorSet(MotorArm, 127 );
+    { 
+        vexMotorSet(MotorArm, 127 );
+        vexMotorSet(MotorArm2, -127 );
     } else if(vexControllerGet(Btn8D))
     {
       vexMotorSet(MotorArm, -127 );
+      vexMotorSet(MotorArm2, 127);
     } else {
       vexMotorSet(MotorArm, 0 );
+      vexMotorSet(MotorArm2, 0);
     }
     
 
