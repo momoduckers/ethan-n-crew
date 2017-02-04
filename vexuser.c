@@ -150,7 +150,7 @@ vexOperator( void *arg )
 
 	// Run until asked to terminate
 	while(!chThdShouldTerminate())
-		{
+  {
 		// flash led/digi out
 		//vexDigitalPinSet( kVexDigital_1, (blink++ >> 3) & 1);
 
@@ -161,41 +161,48 @@ vexOperator( void *arg )
 		// Tank drive
 		// left drive
 
-        int16_t l;
-        int16_t r;
+    int16_t l;
+    int16_t r;
 
-        l=vexControllerGet( Ch2 );
-        r=vexControllerGet( Ch3 );
-        if(abs(l) <= HYSTERESIS) l=0;
-        if(abs(r) <= HYSTERESIS) r=0;
+    l=vexControllerGet( Ch2 );
+    r=vexControllerGet( Ch3 );
+
+    if(abs(l) <= HYSTERESIS) l=0;
+    if(abs(r) <= HYSTERESIS) r=0;
 
 		vexMotorSet( MotorDriveL, l );
-
-		// right drive
 		vexMotorSet( MotorDriveR, r );
 
-        vexMotorSet(MotorBack, 0);
-        if(vexControllerGet(Btn6U))
-        {
-            vexMotorSet(MotorBack, -127 );
-        }
-
-        // left drive
-        vexMotorSet(MotorBack, vexControllerGet( Ch4 ));
-        if(vexControllerGet(Btn5U))
-        if(vexControllerGet(Btn6U))
-        {
-            vexMotorSet(MotorBack, 127);
-        }
+    if(vexControllerGet(Btn6U)&&vexControllerGet(Btn5U))
+    {
+      vexMotorSet(MotorBack, 0 );
+    } else if(vexControllerGet(Btn6U))
+    {
+      vexMotorSet(MotorBack, -127 );
+    } else if(vexControllerGet(Btn5U))
+    {
+      vexMotorSet(MotorBack, 127 );
+    } else {
+      vexMotorSet(MotorBack, 0 );
+    }
+    
 
     // Arm button
-     vexMotorSet(MotorArm, vexcontrollerGet (ch5))
-     if( vexController
-		// Don't hog cpu
-		vexSleep( 25 );
-		}
+    if(vexControllerGet(Btn7U))
+    {
+      vexMotorSet(MotorArm, 127 );
+    } else if(vexControllerGet(Btn8D))
+    {
+      vexMotorSet(MotorArm, -127 );
+    } else {
+      vexMotorSet(MotorArm, 0 );
+    }
+    
 
-	return (msg_t)0;
+    vexSleep( 25 );
+  }
+  
+    return (msg_t)0;
 }
 
 
